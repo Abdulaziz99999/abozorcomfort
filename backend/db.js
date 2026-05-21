@@ -8,6 +8,11 @@ const pool = new Pool({
     database: process.env.DB_NAME || 'abozorcomfort',
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD,
+
+    ssl: {
+        rejectUnauthorized: false
+    },
+
     max: 10,                    // максимум 10 одновременных соединений
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
