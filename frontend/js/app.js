@@ -40,7 +40,7 @@ async function apiRequest(method, path, body = null, requiresAuth = false) {
 
 async function loadCars() {
     try {
-        cars = await apiRequest('GET', '/api/cars');
+        cars = await apiRequest('GET', '/cars');
     } catch (err) {
         console.error('Ошибка загрузки каталога:', err.message);
         cars = [];
@@ -52,7 +52,7 @@ async function loadCars() {
 
 async function loadRequests() {
     try {
-        requests = await apiRequest('GET', '/api/requests', null, true);
+        requests = await apiRequest('GET', '/requests', null, true);
     } catch (err) {
         console.error('Ошибка загрузки заявок:', err.message);
         requests = [];
@@ -215,7 +215,7 @@ async function submitRequest() {
 
     try {
         alertDiv.innerHTML = '<div class="alert" style="color:var(--text2)">Отправка...</div>';
-        await apiRequest('POST', '/api/requests', {
+        await apiRequest('POST', '/requests', {
             carId: window.currentRequestCarId,
             carName,
             clientName: name,
@@ -326,7 +326,7 @@ async function doLogin() {
 
     try {
         alertDiv.innerHTML = '<div class="alert" style="color:var(--text2)">Вход...</div>';
-        const data = await apiRequest('POST', '/api/auth/login', { login: u, password: p });
+        const data = await apiRequest('POST', '/auth/login', { login: u, password: p });
         authToken = data.token;
         // Сохраняем токен в сессии (вкладка)
         sessionStorage.setItem('ac_token', authToken);
@@ -434,7 +434,7 @@ async function saveCar() {
             const idx = cars.findIndex(c => c.id === editId);
             if (idx > -1) cars[idx] = updated;
         } else {
-            const newCar = await apiRequest('POST', '/api/cars', payload, true);
+            const newCar = await apiRequest('POST', '/cars', payload, true);
             cars.unshift(newCar);
         }
 
